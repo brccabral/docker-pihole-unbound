@@ -1,10 +1,10 @@
-ARG PIHOLE_VERSION
 FROM pihole/pihole:${PIHOLE_VERSION:-latest}
-RUN apt update && apt install -y unbound
+RUN apt update && apt install -y unbound nano
 
 COPY lighttpd-external.conf /etc/lighttpd/external.conf 
 COPY unbound-pihole.conf /etc/unbound/unbound.conf.d/pi-hole.conf
 COPY 99-edns.conf /etc/dnsmasq.d/99-edns.conf
+COPY dnsmasq.conf /etc/dnsmasq.conf
 RUN mkdir -p /etc/services.d/unbound
 COPY unbound-run /etc/services.d/unbound/run
 
